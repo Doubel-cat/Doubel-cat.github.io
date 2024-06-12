@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1p2vr66mrtls"]
+
+[ext_resource type="Script" path="res://scenes/ui/player_dead/player_dead.gd" id="1_8lfko"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tg4yu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nkt8b"]
+
+[node name="PlayerDead" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = 21.0
+offset_right = 36.0
+offset_bottom = 21.0
+script = ExtResource("1_8lfko")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = -71.0
+offset_top = -59.0
+offset_right = -11.0
+offset_bottom = -36.0
+label_settings = SubResource("LabelSettings_tg4yu")
+metadata/_edit_group_ = true
+
+[node name="Loots" type="Label" parent="."]
+layout_mode = 0
+offset_left = -101.0
+offset_top = 3.0
+offset_right = -68.0
+offset_bottom = 26.0
+label_settings = SubResource("LabelSettings_nkt8b")
