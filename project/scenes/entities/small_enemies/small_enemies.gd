@@ -4,11 +4,12 @@ var shoot = load_ability("shoot")
 var dash = load_ability("dash")
 var crush = load_ability("crush")
 
-
-var aggro_range = 200
-var min_firing_range = 100
+var enemies_name = "small_enemies"
+var entity_info = EnemyData.get_enemies_info(enemies_name)
+var aggro_range = entity_info["aggro_range"]
+var min_firing_range = entity_info["min_firing_range"]
 var nearest_player = null
-var crush_damage = 15
+var crush_damage = entity_info["crush_damage"]
 var crush_cool_down = 30
 var collision_count: int = 0
 
@@ -17,15 +18,15 @@ var collision_count: int = 0
 func _ready():
 	super._ready()
 	add_to_group("foe")
-	self.global_cooldown = 120
-	self.max_speed = 50
-	self.current_speed = 50
-	self.current_health = 40
-	self.max_health = 40
-	self.health_regen = 0
+	self.global_cooldown = entity_info["global_cooldown"]
+	self.max_speed = entity_info["max_speed"]
+	self.current_speed = entity_info["current_speed"]
+	self.current_health = entity_info["current_health"]
+	self.max_health = entity_info["max_health"]
+	self.health_regen = entity_info["health_regen"]
 	self.death_config = {
 		"gold":{
-			"amount": 5
+			"amount": entity_info["gould_amount"]
 		}
 	}
 	pass # Replace with function body.

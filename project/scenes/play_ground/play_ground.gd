@@ -1,6 +1,9 @@
 extends Node2D
 
-var count_check: int = 0
+var player_node = null
+var entity_info = null
+var entity_scene = null
+var generation_freq_decay = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,12 +29,23 @@ func reset_game():
 	get_node("/root/player_controllers").camera_changed = false
 
 
+func enemies_generation_logic(generation_frequncy, declay_frequncy,enemy_type):
+	if enemy_type == "small_enemies":
+		player_node = get_node("../player_controllers/Player")
+		entity_info = EnemyData.get_enemies_info(enemy_type)
+		entity_scene = load("res://scenes/entities/small_enemies/" + enemy_type + ".tscn")
+		generation_freq_decay = EnemyData.get_enemies_info("small_enemies")["generation_freq_decay"]
+	
+	if (player_controllers.count % generation_frequncy == 0) && (EnemyData.get_enemies_info("small_enemies")["generaion_checker"] != player_controllers.count):
+		player_controllers.spawn_enemies(player_node, entity_scene)
+		EnemyData.get_enemies_info("small_enemies")["generaion_checker"] = player_controllers.count
+	
+	if (player_controllers.count % declay_frequncy == 0) && (EnemyData.get_enemies_info("small_enemies")["generation_freq"] > EnemyData.get_enemies_info("small_enemies")["generation_freq_min"]):
+		EnemyData.get_enemies_info("small_enemies")["generation_freq"] -= generation_freq_decay
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var player_node = get_node("../player_controllers/Player")
-	if (player_controllers.count % (60 *3) == 0) && (count_check != player_controllers.count):
-		player_controllers.spawn_enemies(player_node)
-		count_check = player_controllers.count
+	enemies_generation_logic(EnemyData.get_enemies_info("small_enemies")["generation_freq"], (60*10), "small_enemies")
 	
 	if get_node("/root/player_controllers").rest_game:
 		self.reset_game()

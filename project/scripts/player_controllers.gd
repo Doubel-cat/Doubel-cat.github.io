@@ -13,6 +13,8 @@ var player_initial_speed = 100
 var camera_changed = false
 var rest_game = false
 
+
+
 func get_current_player():
 	if (player_node): 
 		return player_node
@@ -55,9 +57,9 @@ func spawn_other_palyers():
 	pass
 	
 
-func spawn_enemies(player_node):
+func spawn_enemies(player_node, enemies_scene):
 	randomize()
-	var enemies = load("res://scenes/entities/small_enemies/small_enemies.tscn")
+	var enemies = enemies_scene
 	var player = player_node
 	var enemies_node = enemies.instantiate()
 	enemies_node.z_index = player.z_index
