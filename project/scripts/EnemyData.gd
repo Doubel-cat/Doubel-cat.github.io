@@ -14,7 +14,7 @@ var enemies = {
 		 "gould_amount":5,
 		 "generation_freq": 100,
 		 "generation_freq_min": 30,
-		 "generation_freq_decay": 5,
+		 "generation_freq_decay": 10,
 		 "generaion_checker": 0
 		},
 	

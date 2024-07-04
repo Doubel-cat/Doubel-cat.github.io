@@ -5,11 +5,11 @@ var entity_info = null
 var entity_scene = null
 var generation_freq_decay = null
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_controllers.spawn_current_player()
 	pass # Replace with function body.
-
 
 func reset_game():
 	var enemies = get_tree().get_nodes_in_group("foe")
@@ -46,7 +46,7 @@ func enemies_generation_logic(generation_frequncy, declay_frequncy,enemy_type):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	enemies_generation_logic(EnemyData.get_enemies_info("small_enemies")["generation_freq"], (60*10), "small_enemies")
-	
+	print(player_node.global_position)
 	if get_node("/root/player_controllers").rest_game:
 		self.reset_game()
 		get_node("/root/player_controllers").rest_game = false

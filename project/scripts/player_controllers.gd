@@ -12,7 +12,11 @@ var force_back_time = 8
 var player_initial_speed = 100
 var camera_changed = false
 var rest_game = false
-
+var map_x_min = -1575
+var map_y_min = -775
+var map_x_max = 1575
+var map_y_max = 775
+var enemy_generate_distance = 400
 
 
 func get_current_player():
@@ -63,13 +67,16 @@ func spawn_enemies(player_node, enemies_scene):
 	var player = player_node
 	var enemies_node = enemies.instantiate()
 	enemies_node.z_index = player.z_index
-	var ground = get_node("../play_ground/groud")
-	var tiles_positions = ground.get_used_cells(0)
-	index = tiles_positions.find(player.position)
-	if index != -1:
-		tiles_positions.remove_at(index)
-	var rand_location = tiles_positions[randi() % tiles_positions.size()]
-	enemies_node.position = rand_location
+	
+	var enemy_position = Vector2()
+	var player_position = player.global_position
+	while true:
+		enemy_position.x = randf_range(map_x_min,map_x_max)
+		enemy_position.y = randf_range(map_y_min,map_y_max)
+		if enemy_position.distance_to(player_position) >= enemy_generate_distance:
+			break
+	
+	enemies_node.global_position = enemy_position
 	add_child(enemies_node)
 	pass
 
