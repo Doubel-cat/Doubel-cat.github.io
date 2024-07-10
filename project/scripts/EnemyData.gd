@@ -17,7 +17,22 @@ var enemies = {
 		 "generation_freq_decay": 10,
 		 "generaion_checker": 0
 		},
-	
+	"big_enemies": 
+		{"aggro_range": 200,
+		 "min_firing_range": 100,
+		 "crush_damage": 35,
+		 "global_cooldown": 120,
+		 "max_speed": 40,
+		 "current_speed": 40,
+		 "current_health": 60,
+		 "max_health": 100,
+		 "health_regen": 0,
+		 "gould_amount": 20,
+		 "generation_freq": 300,
+		 "generation_freq_min": 200,
+		 "generation_freq_decay": 10,
+		 "generaion_checker": 0
+		},
 }
 
 func get_enemies_info(enemies_name):

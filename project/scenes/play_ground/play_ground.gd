@@ -30,23 +30,25 @@ func reset_game():
 
 
 func enemies_generation_logic(generation_frequncy, declay_frequncy,enemy_type):
-	if enemy_type == "small_enemies":
-		player_node = get_node("../player_controllers/Player")
-		entity_info = EnemyData.get_enemies_info(enemy_type)
-		entity_scene = load("res://scenes/entities/small_enemies/" + enemy_type + ".tscn")
-		generation_freq_decay = EnemyData.get_enemies_info("small_enemies")["generation_freq_decay"]
+	# Get all the scen
+	player_node = get_node("../player_controllers/Player")
+	entity_info = EnemyData.get_enemies_info(enemy_type)
+	entity_scene = load("res://scenes/entities/" + enemy_type + "/" + enemy_type + ".tscn")
+	generation_freq_decay = EnemyData.get_enemies_info(enemy_type)["generation_freq_decay"]
 	
-	if (player_controllers.count % generation_frequncy == 0) && (EnemyData.get_enemies_info("small_enemies")["generaion_checker"] != player_controllers.count):
+	# Generate one enemy once
+	if (player_controllers.count % generation_frequncy == 0) && (EnemyData.get_enemies_info(enemy_type)["generaion_checker"] != player_controllers.count):
 		player_controllers.spawn_enemies(player_node, entity_scene)
-		EnemyData.get_enemies_info("small_enemies")["generaion_checker"] = player_controllers.count
+		EnemyData.get_enemies_info(enemy_type)["generaion_checker"] = player_controllers.count
 	
-	if (player_controllers.count % declay_frequncy == 0) && (EnemyData.get_enemies_info("small_enemies")["generation_freq"] > EnemyData.get_enemies_info("small_enemies")["generation_freq_min"]):
-		EnemyData.get_enemies_info("small_enemies")["generation_freq"] -= generation_freq_decay
+	# Generation time decay checking
+	if (player_controllers.count % declay_frequncy == 0) && (EnemyData.get_enemies_info(enemy_type)["generation_freq"] > EnemyData.get_enemies_info(enemy_type)["generation_freq_min"]):
+		EnemyData.get_enemies_info(enemy_type)["generation_freq"] -= generation_freq_decay
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	enemies_generation_logic(EnemyData.get_enemies_info("small_enemies")["generation_freq"], (60*10), "small_enemies")
-	print(player_node.global_position)
+	enemies_generation_logic(EnemyData.get_enemies_info("big_enemies")["generation_freq"], (60*10), "big_enemies")
 	if get_node("/root/player_controllers").rest_game:
 		self.reset_game()
 		get_node("/root/player_controllers").rest_game = false

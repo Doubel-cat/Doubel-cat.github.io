@@ -4,7 +4,7 @@ var shoot = load_ability("shoot")
 var dash = load_ability("dash")
 var crush = load_ability("crush")
 
-var enemies_name = "small_enemies"
+var enemies_name = "big_enemies"
 var entity_info = EnemyData.get_enemies_info(enemies_name)
 var aggro_range = entity_info["aggro_range"]
 var min_firing_range = entity_info["min_firing_range"]

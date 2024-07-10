@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt53h2n82r2oq"]
+
+[ext_resource type="Texture2D" uid="uid://dp087k4pmpfm4" path="res://asssts/Big_enemy_texture.png" id="1_16b17"]
+[ext_resource type="Script" path="res://scenes/entities/big_enemies/big_enemies.gd" id="1_keux3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j6gij"]
+size = Vector2(64, 64)
+
+[node name="BigEnemies" type="CharacterBody2D"]
+script = ExtResource("1_keux3")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_j6gij")
+
+[node name="BigEnemyTexture" type="Sprite2D" parent="."]
+texture = ExtResource("1_16b17")

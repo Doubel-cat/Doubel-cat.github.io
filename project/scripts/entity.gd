@@ -124,10 +124,7 @@ func apply_damage(amount):
 	else:
 		current_health = 0
 		if (!is_player):
-			var loot = death_scene.instantiate()
-			loot.position = self.global_position
-			loot.config = death_config
-			get_node("/root").add_child(loot)
+			_generate_loot()
 			self.queue_free()
 		else:
 			if !get_node("/root/player_controllers").camera_changed:
@@ -140,6 +137,15 @@ func apply_damage(amount):
 				var player_node = get_node("/root/player_controllers/Player")
 				get_node("/root/player_controllers").change_camera(camera, player_node, player_dead)
 				
+
+func _generate_loot():
+	var loot = death_scene.instantiate()
+	loot.position = self.global_position
+	loot.config = self.death_config
+	loot.scale_factor = 3 - 2 * exp(-0.02 * (loot.config["gold"]["amount"] - 5))
+	print(loot.scale_factor)
+	get_node("/root").add_child(loot)
+
 
 func _physics_process(delta):
 	last_ability += 1
