@@ -19,6 +19,34 @@ script = ExtResource("1_blmdu")
 [node name="debug" type="Node" parent="layer_1"]
 
 [node name="debug_text" type="RichTextLabel" parent="layer_1/debug"]
-custom_minimum_size = Vector2(100, 50)
-offset_right = 500.0
-offset_bottom = 428.0
+z_index = 100
+z_as_relative = false
+custom_minimum_size = Vector2(100, 80)
+offset_right = 254.0
+offset_bottom = 115.0
+bbcode_enabled = true
+
+[node name="health_bar" type="ProgressBar" parent="layer_1"]
+modulate = Color(0.275248, 0.849049, 0, 1)
+z_index = 1
+offset_left = 2.0
+offset_top = 7.0
+offset_right = 254.0
+offset_bottom = 34.0
+size_flags_horizontal = 0
+show_percentage = false
+
+[node name="mana_bar" type="ProgressBar" parent="layer_1"]
+z_index = 1
+offset_left = 2.0
+offset_top = 38.0
+offset_right = 254.0
+offset_bottom = 65.0
+show_percentage = false
+
+[node name="num_info" type="RichTextLabel" parent="layer_1"]
+z_index = 100
+z_as_relative = false
+offset_right = 258.0
+offset_bottom = 162.0
+bbcode_enabled = true

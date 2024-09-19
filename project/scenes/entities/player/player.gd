@@ -53,11 +53,12 @@ func _read_input():
 			interact()
 			last_ability = 0
 		if Input.is_action_pressed("shoot"):
-			shoot.execute(self)
+			shoot.execute(self, "normal")
 			last_ability = 0
-		#if Input.is_action_pressed("inventory"):
-			#inventory.execute(self)
-			#last_ability = 0
+		if Input.is_action_pressed("ability_1"):
+			shoot.execute(self, "ability_1")
+			last_ability = 0
+
 
 func _physics_process(delta):
 	super._physics_process(delta)

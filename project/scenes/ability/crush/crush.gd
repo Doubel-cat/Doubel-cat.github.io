@@ -16,4 +16,3 @@ func execute(s, target_position):
 	var norm_direction = -direct_to_target.normalized()
 	player_controllers.force_back_direction = norm_direction
 	player_controllers.force_back = true
-

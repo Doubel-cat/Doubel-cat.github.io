@@ -16,7 +16,7 @@ var armor: int = 0
 
 var max_mana: int = 100
 var current_mana: int = 100
-var mana_regen: int = 100
+var mana_regen: int = 5
 
 var max_speed: float = 100
 var current_speed: int = player_controllers.player_initial_speed
@@ -49,7 +49,7 @@ func get_state():
 		"global_cooldown": global_cooldown,
 		"is_busy": is_busy,
 		"last_ability": last_ability,
-		"is_player": is_player
+		"is_player": is_player,
 	}
 
 
@@ -143,7 +143,6 @@ func _generate_loot():
 	loot.position = self.global_position
 	loot.config = self.death_config
 	loot.scale_factor = 3 - 2 * exp(-0.02 * (loot.config["gold"]["amount"] - 5))
-	print(loot.scale_factor)
 	get_node("/root").add_child(loot)
 
 
@@ -151,7 +150,7 @@ func _physics_process(delta):
 	last_ability += 1
 	if (player_controllers.count % 60 == 0):
 		regen_health()
-		regen_mana()
+		regen_mana() 
 
 		
 func load_ability(ability_name):
@@ -159,7 +158,3 @@ func load_ability(ability_name):
 	var sceneNode = scene.instantiate()
 	add_child(sceneNode)
 	return sceneNode
-
-
-
-

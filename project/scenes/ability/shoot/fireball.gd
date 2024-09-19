@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var aim_pos = null
 @onready var self_pos = null
 
-var damage = player_controllers.normal_shooting_damage
+var damage =player_controllers.fireball_shooting_damage
 var speed = player_controllers.shooting_projection_speed
 var controller = null
 

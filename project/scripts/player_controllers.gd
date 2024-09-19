@@ -17,6 +17,12 @@ var map_y_min = -775
 var map_x_max = 1575
 var map_y_max = 775
 var enemy_generate_distance = 400
+var shooting_projection_speed: int = 200
+var normal_shooting_damage: int = 20
+var normal_shooting_mana_cost: int = 0
+var fireball_shooting_damage: int = 60
+var fireball_shooting_mana_cost: int = 40
+
 
 
 func get_current_player():

@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7h41tte71s61"]
+
+[ext_resource type="Script" path="res://scenes/ui/hud/hud.gd" id="1_blmdu"]
+
+[node name="hud" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 848.0
+offset_bottom = 352.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_blmdu")
+
+[node name="layer_1" type="CanvasLayer" parent="."]
+
+[node name="debug" type="Node" parent="layer_1"]
+
+[node name="debug_text" type="RichTextLabel" parent="layer_1/debug"]
+custom_minimum_size = Vector2(100, 50)
+offset_right = 500.0
+offset_bottom = 428.0

@@ -16,7 +16,3 @@ func execute(s, dir = []):
 		#s.velocity += Vector2(s.current_speed, s.current_speed)
 		s.velocity = s.velocity.normalized() * s.current_speed
 		s.move_and_slide()
-
-
-
-

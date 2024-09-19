@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b4xwcpahjs77c" path="res://asssts/small_enemies_texture.png" id="2_iaqij"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3y6u"]
-size = Vector2(16, 16)
+size = Vector2(6, 6)
 
 [node name="SmallEnemies" type="CharacterBody2D"]
 script = ExtResource("1_43lgq")
