@@ -12,13 +12,15 @@ config_version=5
 
 config/name="html_game"
 run/main_scene="res://scenes/play_ground/play_ground.tscn"
-config/features=PackedStringArray("4.3", "GL Compatibility")
+config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 player_controllers="*res://scripts/player_controllers.gd"
 EnemyData="*res://scripts/EnemyData.gd"
+DiceSystem="*res://scripts/dice_system.gd"
+Autoload="*res://scripts/autoload.gd"
 
 [importer_defaults]
 

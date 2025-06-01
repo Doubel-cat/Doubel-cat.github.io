@@ -48,7 +48,8 @@ func _process(delta):
 					## only deal damage to enemies
 					if collider.get_groups().size() && collider.get_groups().has(enemy_group):
 						if last_ability > crush_cool_down:
-							collider.apply_damage(crush_damage)
+							# 使用骰子系统进行伤害判定
+							collider.apply_damage(crush_damage, self)
 							crush.execute(collider, self.global_position)
 							last_ability = 0
 			collision_count = get_slide_collision_count()

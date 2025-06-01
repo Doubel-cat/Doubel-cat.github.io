@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://def2tvobn5vmv"]
 
-[ext_resource type="Script" path="res://scenes/ability/shoot/fireball.gd" id="1_ox0lc"]
+[ext_resource type="Script" uid="uid://datujp37y5xss" path="res://scenes/ability/shoot/fireball.gd" id="1_ox0lc"]
 [ext_resource type="Texture2D" uid="uid://d4gdsy5e71628" path="res://asssts/normal_shoot.png" id="2_4mchk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6utf"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnlgk24c1rbm4"]
 
-[ext_resource type="Script" path="res://scenes/entities/loot/gold/gold.gd" id="1_uyam6"]
+[ext_resource type="Script" uid="uid://rrb4wr5qfye" path="res://scenes/entities/loot/gold/gold.gd" id="1_uyam6"]
 [ext_resource type="Texture2D" uid="uid://bf4ritrlrcvh3" path="res://asssts/Gold.png" id="2_q5x75"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oacw7"]

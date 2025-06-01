@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1p2vr66mrtls"]
 
-[ext_resource type="Script" path="res://scenes/ui/player_dead/player_dead.gd" id="1_8lfko"]
+[ext_resource type="Script" uid="uid://cntdnkyt415ws" path="res://scenes/ui/player_dead/player_dead.gd" id="1_8lfko"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tg4yu"]
 

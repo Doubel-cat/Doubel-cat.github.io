@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://bihmtg4y377jq"]
 
-[ext_resource type="Script" path="res://scenes/play_ground/play_ground.gd" id="1_38nq8"]
+[ext_resource type="Script" uid="uid://vfetrt4t3glo" path="res://scenes/play_ground/play_ground.gd" id="1_38nq8"]
 [ext_resource type="Texture2D" uid="uid://cex0ub5poi0va" path="res://asssts/tails.png" id="2_bdxl3"]
 [ext_resource type="Texture2D" uid="uid://djgk8kb3oyfkl" path="res://asssts/deep_gray.png" id="3_mqru2"]
-[ext_resource type="Script" path="res://scenes/play_ground/groud.gd" id="3_qkcbb"]
+[ext_resource type="Script" uid="uid://25e4api01ugi" path="res://scenes/play_ground/groud.gd" id="3_qkcbb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vt0cv"]
 

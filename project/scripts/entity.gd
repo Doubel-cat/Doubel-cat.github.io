@@ -1,6 +1,14 @@
 extends CharacterBody2D
 class_name Entity
 
+# 导入骰子系统和判定系统
+const DiceConfig = preload("res://scripts/dice_system.gd").DiceConfig
+const CheckConfig = preload("res://scripts/check_system.gd").CheckConfig
+const Autoload = preload("res://scripts/autoload.gd")
+
+# 获取系统实例
+var dice_system
+var check_system
 
 # what to do when this entity dies
 var death_scene = load("res://scenes/entities/loot/gold/gold.tscn")
@@ -31,6 +39,33 @@ var last_ability: int = 0
 var is_player : bool = false
 var is_alive: bool = true
 
+# 骰子系统相关
+var dice_config: DiceConfig
+var check_config: CheckConfig
+
+func _ready():
+	add_to_group("entity")
+	
+	# 等待一帧确保自动加载节点已经准备好
+	await get_tree().process_frame
+	
+	# 从静态方法获取系统实例
+	dice_system = Autoload.get_dice_system()
+	check_system = Autoload.get_check_system()
+	
+	# 确保系统已初始化
+	if dice_system == null or check_system == null:
+		push_error("Dice system or check system not found! Please ensure autoload.gd is properly registered in Project Settings -> AutoLoad.")
+		return
+	
+	# 初始化骰子配置
+	if is_player:
+		dice_config = dice_system.get_default_player_dice()
+		check_config = check_system.create_default_player_check_config()
+	else:
+		dice_config = dice_system.get_default_enemy_dice()
+		check_config = check_system.create_default_enemy_check_config()
+
 
 func get_state():
 	return{
@@ -51,10 +86,6 @@ func get_state():
 		"last_ability": last_ability,
 		"is_player": is_player,
 	}
-
-
-func _ready():
-	add_to_group("entity")
 
 
 func get_enemies():
@@ -116,7 +147,18 @@ func can_cast_ability(mana_cost):
 		return false
 
 
-func apply_damage(amount):
+func apply_damage(amount, attacker = null):
+	if attacker:
+		# 使用骰子系统进行判定
+		var roll_result = dice_system.roll_dice(attacker.dice_config, attacker.check_config)
+		amount = roll_result.final_damage
+		
+		# 创建并显示伤害HUD
+		var damage_hud = load("res://scenes/ui/damage_hud/damage_hud.tscn").instantiate()
+		damage_hud.position = global_position + Vector2(0, -50)  # 在实体上方显示
+		get_tree().root.add_child(damage_hud)
+		damage_hud.setup(roll_result.individual_rolls, roll_result.check_result, amount, current_health - amount)
+	
 	if (armor > 0):
 		amount = amount * ((100 - armor) * .01)
 	if (current_health > amount):
@@ -136,7 +178,7 @@ func apply_damage(amount):
 				var camera = get_node("../Player/main_camera")
 				var player_node = get_node("/root/player_controllers/Player")
 				get_node("/root/player_controllers").change_camera(camera, player_node, player_dead)
-				
+
 
 func _generate_loot():
 	var loot = death_scene.instantiate()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpgng43dpwcgs"]
 
-[ext_resource type="Script" path="res://scenes/entities/small_enemies/small_enemies.gd" id="1_43lgq"]
+[ext_resource type="Script" uid="uid://ct2w6ulmfgb3v" path="res://scenes/entities/small_enemies/small_enemies.gd" id="1_43lgq"]
 [ext_resource type="Texture2D" uid="uid://b4xwcpahjs77c" path="res://asssts/small_enemies_texture.png" id="2_iaqij"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3y6u"]

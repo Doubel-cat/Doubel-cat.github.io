@@ -40,7 +40,8 @@ func _process(delta):
 			
 			# only deal damage to enemies
 			if collider.get_groups().size() && collider.get_groups().has(enemy_group):
-				collider.apply_damage(damage)
+				# 使用骰子系统进行伤害判定
+				collider.apply_damage(damage, controller)
 				_explode()
 		else:
 			_explode()

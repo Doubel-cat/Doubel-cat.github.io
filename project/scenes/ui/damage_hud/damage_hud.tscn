@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://da7uu3yol05va"]
+
+[ext_resource type="Script" uid="uid://du2p461828hr3" path="res://scenes/ui/damage_hud/damage_hud.gd" id="1_jwgbe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nnw3r"]
+
+[node name="DamageHud" type="Node2D"]
+script = ExtResource("1_jwgbe")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = SubResource("LabelSettings_nnw3r")
+horizontal_alignment = 1

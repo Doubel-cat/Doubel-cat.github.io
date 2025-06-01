@@ -3,6 +3,8 @@ extends Entity
 var gold: int = 0
 var crystal: int = 0
 var force_back_count: int = 0
+var auto_attack_timer: float = 0.0
+var auto_attack_interval: float = 0.5  # 0.5秒的攻击间隔
 
 
 func _ready():
@@ -48,12 +50,15 @@ func _read_input():
 		movement.append("right")
 	move.execute(self, movement)
 	
+	# 自动攻击逻辑
+	auto_attack_timer += get_physics_process_delta_time()  # 使用物理帧的delta time
+	if auto_attack_timer >= auto_attack_interval:
+		shoot.execute(self, "normal")
+		auto_attack_timer = 0.0
+	
 	if last_ability > global_cooldown:
 		if Input.is_action_pressed("interact"):
 			interact()
-			last_ability = 0
-		if Input.is_action_pressed("shoot"):
-			shoot.execute(self, "normal")
 			last_ability = 0
 		if Input.is_action_pressed("ability_1"):
 			shoot.execute(self, "ability_1")
