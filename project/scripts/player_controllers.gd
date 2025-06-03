@@ -9,7 +9,15 @@ var force_back_speed: int = 400 # parameter when enemies crush on layer to push 
 var force_back = false
 var force_back_direction = null
 var force_back_time = 8
-var player_initial_speed = 100
+
+# 使用 @onready 延迟初始化这些变量
+@onready var player_initial_speed = PlayerData.base_stats["current_speed"]
+@onready var shooting_projection_speed = PlayerData.combat_stats["shooting_projection_speed"]
+@onready var normal_shooting_damage = PlayerData.combat_stats["normal_shooting_damage"]
+@onready var normal_shooting_mana_cost = PlayerData.combat_stats["normal_shooting_mana_cost"]
+@onready var fireball_shooting_damage = PlayerData.combat_stats["fireball_shooting_damage"]
+@onready var fireball_shooting_mana_cost = PlayerData.combat_stats["fireball_shooting_mana_cost"]
+
 var camera_changed = false
 var rest_game = false
 var map_x_min = -1575
@@ -17,11 +25,6 @@ var map_y_min = -775
 var map_x_max = 1575
 var map_y_max = 775
 var enemy_generate_distance = 400
-var shooting_projection_speed: int = 200
-var normal_shooting_damage: int = 20
-var normal_shooting_mana_cost: int = 0
-var fireball_shooting_damage: int = 60
-var fireball_shooting_mana_cost: int = 40
 
 
 

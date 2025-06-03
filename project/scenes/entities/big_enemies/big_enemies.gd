@@ -10,7 +10,7 @@ var aggro_range = entity_info["aggro_range"]
 var min_firing_range = entity_info["min_firing_range"]
 var nearest_player = null
 var crush_damage = entity_info["crush_damage"]
-var crush_cool_down = 30
+var crush_cool_down = entity_info["crush_cool_down"]
 var collision_count: int = 0
 
 
@@ -24,6 +24,9 @@ func _ready():
 	self.current_health = entity_info["current_health"]
 	self.max_health = entity_info["max_health"]
 	self.health_regen = entity_info["health_regen"]
+	self.armor = entity_info["armor"]
+	self.acceleration = entity_info["acceleration"]
+	self.agility = entity_info["agility"]
 	self.death_config = {
 		"gold":{
 			"amount": entity_info["gould_amount"]

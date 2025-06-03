@@ -15,38 +15,32 @@ enum CheckResult {
 class CheckRange:
 	var min_value: int  # 最小值
 	var max_value: int  # 最大值
-	var critical_failure_threshold: float  # 大失败阈值（百分比）
-	var failure_threshold: float  # 失败阈值（百分比）
-	var success_threshold: float  # 成功阈值（百分比）
-	var critical_success_threshold: float  # 大成功阈值（百分比）
+	var critical_failure_threshold: int  # 大失败阈值
+	var failure_threshold: int  # 失败阈值
+	var success_threshold: int  # 成功阈值
 	
-	func _init(min_val: int, max_val: int, 
-			   crit_fail: float = 0.1,  # 默认10%概率大失败
-			   fail: float = 0.4,       # 默认40%概率失败
-			   success: float = 0.4,    # 默认40%概率成功
-			   crit_success: float = 0.1):  # 默认10%概率大成功
+	func _init(min_val: int, max_val: int):
 		min_value = min_val
 		max_value = max_val
-		critical_failure_threshold = crit_fail
-		failure_threshold = fail
-		success_threshold = success
-		critical_success_threshold = crit_success
-	
-	# 验证阈值是否合法
-	func validate_thresholds() -> bool:
-		var total = critical_failure_threshold + failure_threshold + success_threshold + critical_success_threshold
-		return abs(total - 1.0) < 0.001  # 允许0.1%的误差
+		
+		# 计算实际可能值的范围
+		var possible_values = max_val - min_val + 1
+		
+		# 设置判定阈值（值越大越好）
+		# 大失败：最低10%的数值
+		critical_failure_threshold = min_val + int(possible_values * 0.1)
+		# 失败：最低50%的数值
+		failure_threshold = min_val + int(possible_values * 0.5)
+		# 成功：最低90%的数值
+		success_threshold = min_val + int(possible_values * 0.9)
 	
 	# 获取判定结果
 	func get_check_result(value: int) -> int:
-		var range_size = max_value - min_value
-		var normalized_value = float(value - min_value) / range_size
-		
-		if normalized_value <= critical_failure_threshold:
+		if value <= critical_failure_threshold:
 			return CheckResult.CRITICAL_FAILURE
-		elif normalized_value <= (critical_failure_threshold + failure_threshold):
+		elif value <= failure_threshold:
 			return CheckResult.FAILURE
-		elif normalized_value <= (critical_failure_threshold + failure_threshold + success_threshold):
+		elif value <= success_threshold:
 			return CheckResult.SUCCESS
 		else:
 			return CheckResult.CRITICAL_SUCCESS
@@ -90,12 +84,70 @@ func get_entity_check_config(entity_id: String) -> CheckConfig:
 
 # 创建默认的玩家判定配置
 func create_default_player_check_config() -> CheckConfig:
-	var range_config = CheckRange.new(2, 12)  # 2d6的范围
+	# 获取玩家的骰子池
+	var dice_pool = get_parent().get_node("dice_pool")
+	
+	# 获取当前场景中的玩家实体
+	var player = get_tree().get_first_node_in_group("player")
+	if not player:
+		return CheckConfig.new(CheckRange.new(0, 0))
+	
+	# 使用玩家的entity_id获取骰子池
+	var player_pool = dice_pool.get_entity_dice_pool(player.entity_id)
+	
+	# 计算最小和最大可能值
+	var min_value = 0
+	var max_value = 0
+
+	# 遍历所有激活的骰子配置
+	for dice_config in player_pool.get_active_dice_sets():
+		# 获取每个面的实际值
+		var min_face_value = dice_config.faces[0].value
+		var max_face_value = dice_config.faces[0].value
+		for face in dice_config.faces:
+			min_face_value = min(min_face_value, face.value)
+			max_face_value = max(max_face_value, face.value)
+		
+		# 累加最小和最大值
+		min_value += min_face_value * dice_config.dice_count
+		max_value += max_face_value * dice_config.dice_count
+	
+	# 创建判定范围配置
+	var range_config = CheckRange.new(min_value, max_value)
 	return CheckConfig.new(range_config)
 
 # 创建默认的敌人判定配置
 func create_default_enemy_check_config() -> CheckConfig:
-	var range_config = CheckRange.new(1, 6)  # 1d6的范围
+	# 获取敌人的骰子池
+	var dice_pool = get_parent().get_node("dice_pool")
+	
+	# 获取当前场景中的敌人实体
+	var enemy = get_tree().get_first_node_in_group("foe")
+	if not enemy:
+		return CheckConfig.new(CheckRange.new(0, 0))
+	
+	# 使用敌人的entity_id获取骰子池
+	var enemy_pool = dice_pool.get_entity_dice_pool(enemy.entity_id)
+	
+	# 计算最小和最大可能值
+	var min_value = 0
+	var max_value = 0
+	
+	# 遍历所有激活的骰子配置
+	for dice_config in enemy_pool.get_active_dice_sets():
+		# 获取每个面的实际值
+		var min_face_value = dice_config.faces[0].value
+		var max_face_value = dice_config.faces[0].value
+		for face in dice_config.faces:
+			min_face_value = min(min_face_value, face.value)
+			max_face_value = max(max_face_value, face.value)
+		
+		# 累加最小和最大值
+		min_value += min_face_value * dice_config.dice_count
+		max_value += max_face_value * dice_config.dice_count
+	
+	# 创建判定范围配置
+	var range_config = CheckRange.new(min_value, max_value)
 	return CheckConfig.new(range_config)
 
 # 应用判定结果到伤害

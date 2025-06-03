@@ -21,6 +21,7 @@ player_controllers="*res://scripts/player_controllers.gd"
 EnemyData="*res://scripts/EnemyData.gd"
 DiceSystem="*res://scripts/dice_system.gd"
 Autoload="*res://scripts/autoload.gd"
+PlayerData="*res://scripts/PlayerData.gd"
 
 [importer_defaults]
 

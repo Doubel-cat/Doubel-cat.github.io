@@ -17,12 +17,12 @@ func setup(dice_rolls: Array, check_result: int, final_damage: float, remaining_
 	# 构建显示文本
 	var result_text = ""
 	match check_result:
-		0: result_text = "大失败"
-		1: result_text = "失败"
-		2: result_text = "成功"
-		3: result_text = "大成功"
+		0: result_text = "Big_loss"
+		1: result_text = "loss"
+		2: result_text = "success"
+		3: result_text = "Big_success"
 	
-	var display_text = "骰子: %s\n%s\n伤害: %.0f\n剩余生命: %d" % [
+	var display_text = "Dice: %s\n%s\nDamage: %.0f\nLife: %d" % [
 		str(dice_rolls),
 		result_text,
 		final_damage,

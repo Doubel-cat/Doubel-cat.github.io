@@ -68,15 +68,29 @@ class DiceResult:
 	var total_value: int   # 总点数
 	var individual_rolls: Array  # 每个骰子的点数
 	var final_damage: float  # 最终伤害
+	var dice_config: DiceConfig  # 添加骰子配置属性
 	
 	func _init():
 		individual_rolls = []
 		total_value = 0
 		final_damage = 0.0
+		dice_config = null  # 初始化为null
+
+# 创建标准骰子面配置
+func create_standard_dice_faces(sides: int) -> Array[DiceFace]:
+	var faces: Array[DiceFace] = []
+	for i in range(1, sides + 1):
+		faces.append(DiceFace.new(i))
+	return faces
+
+# 创建标准骰子配置
+func create_standard_dice_config(dice_type: int, count: int, multiplier: float = 1.0) -> DiceConfig:
+	return DiceConfig.new(create_standard_dice_faces(dice_type), count, multiplier)
 
 # 单次骰子投掷
 func roll_dice(config: DiceConfig, check_config: CheckConfig) -> DiceResult:
 	var result = DiceResult.new()
+	result.dice_config = config  # 设置骰子配置
 	
 	# 使用数组操作一次性生成所有骰子的结果
 	result.individual_rolls = Array(range(config.dice_count)).map(
@@ -110,7 +124,6 @@ func roll_dice(config: DiceConfig, check_config: CheckConfig) -> DiceResult:
 	# 获取判定系统实例并应用判定结果到伤害
 	var check_system = get_parent().get_node("check_system")
 	result.final_damage = check_system.apply_check_result_to_damage(base_damage, result.check_result, check_config)
-
 	
 	return result
 
@@ -129,13 +142,6 @@ func process_multiple_targets(attacker_config: DiceConfig, check_config: CheckCo
 		results.append(target_result)
 	
 	return results
-
-# 创建标准骰子面配置
-func create_standard_dice_faces(sides: int) -> Array[DiceFace]:
-	var faces: Array[DiceFace] = []
-	for i in range(1, sides + 1):
-		faces.append(DiceFace.new(i))
-	return faces
 
 # 获取默认的玩家骰子配置
 func get_default_player_dice() -> DiceConfig:
